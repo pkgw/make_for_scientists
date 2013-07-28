@@ -1,23 +1,22 @@
 ---
 layout: default
 title:  Make for Scientists
+tagline: A work in progress!
 ---
 
-This is my amazing website built by `jekyll`.
+Welcome to the "Make for Scientists" tutorial! We're aiming to explain a
+little bit about the useful Unix tool `make`: *what* it is, *when* you might
+want to use it, and *how* it works. We're not going to try to teach you
+everything, but hopefully we can add another arrow to your computational
+quiver.
 
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+{% highlight make %}
+foo: foo.c
+    gcc -o $@ $^
 {% endhighlight %}
 
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out
-of Jekyll. File all bugs/feature requests at [Jekyll's GitHub
-repo][jekyll-gh].
+This isn't the place for advanced techniques or detailed reference
+information. For those, try [StackExchange] or our old friend [Google].
 
-[jekyll-gh]: https://github.com/mojombo/jekyll
-[jekyll]:    http://jekyllrb.com
+[StackExchange]: http://stackexchange.com/
+[Google]: https://google.com/
