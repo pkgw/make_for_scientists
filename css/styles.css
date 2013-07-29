@@ -625,15 +625,6 @@ blockquote {
 code {
   font-family: "Lucida Sans", Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color: #efefef;
-  font-size: 13px;
-  margin: 0 4px;
-  padding: 4px 6px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -o-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -khtml-border-radius: 2px;
-  border-radius: 2px;
 }
 
 pre {
@@ -777,7 +768,7 @@ dt {
 #header nav li.title {
   float: right;
   margin-right: 10px;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 section {
