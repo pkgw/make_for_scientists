@@ -29,8 +29,8 @@ There's a [reference guide][mdref] and [special GitHub extensions][gfm]; I
 [gfm]: https://help.github.com/articles/github-flavored-markdown
 
 [Jekyll] is the tool used to compile the files into a usable, live website. As
-mentioned above, it's built into [GitHub Pages] so we don't even need to worry
-about that part. And it's super easy to use by on your local computer to
+mentioned above, it's built into [GitHub Pages][ghpages] so we don't even need
+to worry about that part. And it's super easy to use on your local computer to
 preview the site before you publish something. You do need to [install
 it][installjekyll] first, of course. Then in your repository directory, just
 launch:
