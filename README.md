@@ -2,24 +2,36 @@ Make for Scientists
 ===================
 
 This repository has the source code for the "Make for Scientists" tutorial.
-The actual site is hosted on [Github Pages][livesite]; you only want to
-look at this repository if you're interested in making your own, improved
-version of the site.
+**The [actual site is here][livesite]**, hosted on [GitHub Pages][ghpages];
+you only need to worry about this repository if you're interested in making
+your own, improved version of the site.
 
 [livesite]: http://pkgw.github.io/make_for_scientists/
+[ghpages]: http://pages.github.com/
 
 Improving the Site
 ------------------
 
-The website is generated with the [Jekyll] templating system, which has the
-advantage of being natively supported by GitHub Pages. That means that with
-the right setup, you can just push an updated file to your GitHub repository
-and the fancy-formatted live site will update automatically. Snazzy!
+The website is generated from [Markdown] files with the [Jekyll] templating
+system, which have the advantage of being natively supported by GitHub Pages.
+With the right setup, you can just push an updated file to your GitHub
+repository and the fancy-formatted live site will update automatically.
+Snazzy!
 
 [Jekyll]: http://jekyllrb.com/
 [Markdown]: https://help.github.com/articles/github-flavored-markdown
 
-Jekyll is super easy to use by itself. You do need to [install
+[Markdown] is the text format used in the main tutorial file, `index.md`.
+There's a [reference guide][mdref] and [special GitHub extensions][gfm]; I
+*assume* that [GitHub Pages][ghpages] uses the latter, but I should check!
+
+[mdref]: http://daringfireball.net/projects/markdown/syntax
+[gfm]: https://help.github.com/articles/github-flavored-markdown
+
+[Jekyll] is the tool used to compile the files into a usable, live website. As
+mentioned above, it's built into [GitHub Pages] so we don't even need to worry
+about that part. And it's super easy to use by on your local computer to
+preview the site before you publish something. You do need to [install
 it][installjekyll] first, of course. Then in your repository directory, just
 launch:
 
