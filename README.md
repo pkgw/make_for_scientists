@@ -1,5 +1,5 @@
-Make for Scientists
-===================
+Make for Scientists — The Source Code
+=====================================
 
 This repository has the source code for the "Make for Scientists" tutorial.
 **The [actual site is here][livesite]**, hosted on [GitHub Pages][ghpages];
