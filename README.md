@@ -33,7 +33,7 @@ launch:
 jekyll serve --watch
 ```
 
-and you'll be able to view the built site at `http://localhost:4000/`.
+and you'll be able to view the built site at <http://localhost:4000/>.
 
 [jekyll]: http://jekyllrb.com/
 [markdown]: https://help.github.com/articles/github-flavored-markdown
