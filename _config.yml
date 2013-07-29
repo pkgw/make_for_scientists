@@ -2,3 +2,6 @@ name: Make for Scientists
 markdown: redcarpet
 pygments: true
 exclude: ['README.md']
+
+redcarpet:
+  extensions: ['smart']
