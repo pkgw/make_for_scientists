@@ -20,19 +20,25 @@ going on. If you're not a scientist, there's nothing scary in here; the
 examples will just be tilted in a direction that might be less directly useful
 to you.
 
+> **Note**: this tutorial is a work in progress. It's not yet complete or
+> polished.
+
 
 What is “Make”?
 ===============
 
 `make` is a venerable Unix command-line tool. It makes things.
 
-You give `make` a set of *recipes*: “To make *A*, do *X*, then *Y*, then *Z*.”
-Make can execute those recipes for you. The things that `make` makes, such as
-our metasyntactic *A*, are called *targets*.
+Before running `make` you specify a set of *recipes*: “To make *A*, do *X*,
+then *Y*, then *Z*.” All `make` does is execute certain of those recipes for
+you. The things that `make` makes, such as our metasyntactic *A*, are called
+*targets*.
 
 You also tell `make` about *dependencies* between targets: “*A* is derived
 from *B*. If *B* changes, *A* needs to be remade.” `make` can keep track of
 “freshness,” so that it knows which targets need to be remade and which don't.
+When you ask `make` to make a target, it looks at all of the dependencies to
+make sure that it's fully up-to-date.
 
 On an abstract level, that's really all there is to it.
 
@@ -134,6 +140,41 @@ pdflatex paper
 $
 {% endhighlight %}
 
+If you give `make` the name of one or more targets as command-line arguments,
+it will build only them. If you don't give it any arguments, as we've been
+showing, it builds the *first* target listed in your `Makefile`. Generally,
+then, you want your first target to be your final product.
+
+{% highlight bash %}
+$ make paper.pdf
+pdflatex paper
+$ make paper.tex
+make: 'paper.tex' is up to date.
+$
+{% endhighlight %}
+
+Stepping Back
+=============
+
+Our example has been very simple, but hopefully it's starting to convey a
+couple of ways in which `make` is a very useful tool.
+
+Firstly, there's `make`'s *raison d’être*: its dependency tracking, which lets
+you keep a complicated data product up-to-date without completely recomputing
+it from Square One. Even in our simple example, this could be very useful if,
+say, the `extractor.py` program takes 10 minutes to run.
+
+Secondly, there's the fact that all of your recipes are codified in your
+`Makefile`, and you can access them just by typing `make`. It's not too hard
+to type `pdflatex paper` once in a while, but some recipes are a lot more
+complicated than that, and it's important to have them stored somewhere other
+than your shell history. Even better, `make` can be your Swiss Army knife: a
+single place you go to for access to a whole suite of useful tools. If you
+have a data analysis process that generates dozens of intermediate products,
+`make` can be the single point of access for creating or updating any of them
+--- once you've written your `Makefile`, `make <filename>` is the only thing
+you need to remember.
+
 
 <h1 id="credits">Credits</h1>
 
@@ -141,7 +182,7 @@ Contributors include:
 
 * [Peter K. G. Williams](http://newton.cx/~peter/)
 * Your name could be here! All you need to do to create your own modified
-  version of this tutorial is to [fork it on 
+  version of this tutorial is to [fork it on
   GitHub](https://github.com/{{ page.ghlink }}).
 
 This site is hosted on [GitHub Pages](http://pages.github.com/). The site
