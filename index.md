@@ -27,8 +27,8 @@ What is “Make”?
 `make` is a venerable Unix command-line tool. It makes things.
 
 You give `make` a set of *recipes*: “To make *A*, do *X*, then *Y*, then *Z*.”
-Make can execute those recipes for you. Anything that `make` makes, such as
-our metasyntactic *A*, is called a *target*.
+Make can execute those recipes for you. The things that `make` makes, such as
+our metasyntactic *A*, are called *targets*.
 
 You also tell `make` about *dependencies* between targets: “*A* is derived
 from *B*. If *B* changes, *A* needs to be remade.” `make` can keep track of
@@ -46,8 +46,8 @@ explore its possibilities shortly. But first, a quick example to get you
 grounded.
 
 
-A Short, Unthrilling Example
-============================
+A Basic Example
+===============
 
 You tell `make` about your targets, their dependencies, and your recipes by
 writing an ASCII text file called `Makefile`. When you run `make` on the
@@ -100,7 +100,9 @@ sees that `table.tex` depends on `extractor.py` and `info.fits`, both of which
 exist, and both of which are not listed in the `Makefile`. No sub-dependencies
 need to be checked, so `table.tex` can be built. Once this is done, all of the
 dependencies of `paper.pdf` have been dealt with, so it too can be built.
-Overall,
+
+When you run `make`, it prints out the commands that it's running. So the
+overall effect would be:
 
 {% highlight bash %}
 $ make
@@ -108,6 +110,14 @@ $ make
 pdflatex paper
 $
 {% endhighlight %}
+
+(Well, I've cheated in one way: each command that `make` runs prints its
+output as normal, so you'd also get a bunch of output from `pdflatex`, as well
+as anything that `extractor.py` happens to print out. This can get pretty
+annoying, and I recommend using [a wrapper script to drive latex][latexdriver]
+that hides its output by default.)
+
+[latexdriver]: https://github.com/pkgw/pwpy/blob/master/scibin/latexdriver
 
 Imagine that we write up some amazing results in `paper.tex` and rerun `make`.
 What happens? The same evaluation from before is repeated. This time, however,
