@@ -153,6 +153,7 @@ make: 'paper.tex' is up to date.
 $
 {% endhighlight %}
 
+
 Stepping Back
 =============
 
@@ -174,6 +175,58 @@ have a data analysis process that generates dozens of intermediate products,
 `make` can be the single point of access for creating or updating any of them
 --- once you've written your `Makefile`, `make <filename>` is the only thing
 you need to remember.
+
+A good thing about `make` that may be less obvious is the way that it lets you
+build a complicated data pipeline from small pieces that you can reason about.
+Writing the `Makefile` stanza for a target is usually not difficult: you
+generally know how the recipe should go, and you just need to think about what
+its dependencies are. But by just writing a bunch of straightforward targets
+in a row, you can construct a sophisticated pipeline with complicated
+dependency structure. For instance, the example that we showed above could be
+approximated with a shell script decently; in a C shell, you could write
+something like
+
+{% highlight tcsh %}
+#! /bin/tcsh
+# run as "./script.sh extract" or "./script.sh latex",
+# depending on how much reprocessing you want to do.
+
+goto $1
+
+extract:
+./extractor.py info.fits >table.tex
+
+latex:
+pdflatex paper
+{% endhighlight %}
+
+But imagine a data processing pipeline that implements a complicated
+flowchart. It can't be easily linearized into a shell script, and it's *very*
+difficult to write something that will rerun only the recipes that truly need
+it.
+
+> You can think of the targets in a `Makefile` as constructing a graph, in the
+> mathematical sense. Each target is a node, and has links to other nodes: its
+> dependencies. A `Makefile` actually defines a very well-known kind of graph,
+> a [Directed Acyclic
+> Graph](http://en.wikipedia.org/wiki/Directed_acyclic_graph) or DAG. It's
+> *directed* because the links between nodes have a direction: “*A* depends on
+> *B*” does not imply “*B* depends on *A*”. It's *acyclic* because you're not
+> allowed to have cycles, that is, closed loops. Such a loop is a “circular
+> dependency” in `make`, and it should be clear that loops like this are not
+> compatible with `make`'s processing model.
+>
+> There is a well-developed literature regarding DAGs and thinking about
+> dependency trees in terms of graph theory can be helpful, if your mind has a
+> certain mathematical bent.
+>
+> Incidentally, another well-respected piece of software,
+> [Git](http://git-scm.com/), also has a DAG as its core data structure, even
+> though it applies it to solve a vastly different problem.
+
+Another way of putting it is that `make` lets you build pipelines that get
+arbitrarily sophisticated, but each step along that path is straightforward
+and easy to check for correctness.
 
 
 <h1 id="credits">Credits</h1>
