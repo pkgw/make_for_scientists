@@ -57,6 +57,11 @@ To share improvements, please submit a [pull request][prhelp] to [the original
 repository][orig]. Or you can start discussing ideas for improvements using
 its [issue tracker][origissues].
 
+If you want folks to build off of your forked repository, you should update a
+few of the links that include references to the original source. There are
+just two: the `livesite` link at the top of [this file](README.md), and the
+`ghlink` variable at the top of [index.md](index.md).
+
 [orig]: https://github.com/pkgw/make_for_scientists/
 [prhelp]: https://help.github.com/articles/using-pull-requests
 [origissues]: https://github.com/pkgw/make_for_scientists/issues
