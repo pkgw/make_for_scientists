@@ -3,7 +3,15 @@ layout: default
 title: “Make” for Scientists
 ghlink: pkgw/make_for_scientists
 analyticsid: UA-26313513-1
+gitid: "$Id$"
 ---
+
+{% comment %} This is kind of silly, but it's nice to have the commit SHA1
+accessible for substitution into the HTML. This is the best way I can find to
+do the text processing. We have to split the capture into two lines because
+otherwise Git sees it as an Id: substitution! {% endcomment %}
+{% capture sha1tmp %}{{ page.gitid | remove:'$Id: ' }}{% endcapture %}
+{% capture sha1 %}{{ sha1tmp | remove:' $' }}{% endcapture %}
 
 Welcome to the **"Make” for Scientists** tutorial! We're aiming to explain a
 little bit about the useful Unix tool `make`: *what* it is, *when* you might
@@ -282,3 +290,8 @@ Contributors include:
 This site is hosted on [GitHub Pages](http://pages.github.com/). The site
 design is based on the [Midnight](https://github.com/mattgraham/Midnight)
 theme created by [Matt Graham](http://madebygraham.com/).
+
+The identifier of this particular version of the tutorial is
+[{{ sha1 }}][shalink].
+
+[shalink]: https://github.com/{{ page.ghlink }}/commit/{{ sha1 }}
