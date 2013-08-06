@@ -229,6 +229,47 @@ arbitrarily sophisticated, but each step along that path is straightforward
 and easy to check for correctness.
 
 
+Some Details
+============
+
+We’ve talked a little bit about the cases where `make` is useful and given a
+short example of a `Makefile`, the recipe rule that `make` uses to know what
+to do. Now let's delve into some finer-grained details that are important for
+getting the most out of `make`.
+
+Tabs, not Spaces
+----------------
+
+`make` is an old program, and as such it has some warts that are just really
+dumb. The most famous of these is encapsulated in the title of this
+subsection. Let's look at another example fragment of a `Makefile`:
+
+{% highlight make %}
+mytool: mytool.c mytool.h mytable.h
+	gcc -g -O2 -Wall -o mytool mytool.c
+
+mytable.h: maketable.py mytable.dat
+	python maketable.py mytable.dat >mytable.h
+{% endhighlight %}
+
+We mentioned before that the recipes to make each target are indented. What we
+*didn't* mention is that this indent must be made from a single hit of the
+“tab” key, and nothing else. Not four spaces, not eight spaces, not spaces and
+a tab. This is dumb because the difference between these variations is
+essentially invisible, but that’s just how things are.
+
+Most decent text editors are aware of this and make sure that the `Makefile`s
+they generate have the right contents. But some programs won’t get this right.
+Another thing to look out for is copying and pasting code from terminal
+windows or webpages (such as this one!). Even if the original file uses tabs,
+the conversion can sometimes change them to spaces and break the `Makefile`.
+
+Variables
+---------
+
+You can define variables in `Makefile`s.
+
+
 <h1 id="credits">Credits</h1>
 
 Contributors include:
