@@ -285,7 +285,10 @@ Contributors include:
 * [Peter K. G. Williams](http://newton.cx/~peter/)
 * Your name could be here! All you need to do to create your own modified
   version of this tutorial is to [fork it on
-  GitHub](https://github.com/{{ page.ghlink }}).
+  GitHub](https://github.com/{{ page.ghlink }}). The [README][readme] has
+  instructions.
+
+[readme]: https://github.com/{{ page.ghlink }}/#readme
 
 This site is hosted on [GitHub Pages](http://pages.github.com/). The site
 design is based on the [Midnight](https://github.com/mattgraham/Midnight)
