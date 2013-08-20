@@ -315,6 +315,99 @@ above, if the variable `VERBOSE` is not assigned in the `Makefile`:
 $ make foo VERBOSE=1
 {% endhighlight %}
 
+Recipe Contents
+---------------
+
+All of the `make` recipes that we've shown so far have been very simple
+shell-script one-liners. You can write more complicated recipes if you want,
+subject to a few limitations.
+
+{% highlight make %}
+# Make sure that cross-references are fully up-to-date!
+paper.pdf: paper.tex table.tex
+	pdflatex paper
+	bibtex paper
+	pdflatex paper >/dev/null
+	pdflatex paper
+
+# Can be overridden: make install prefix=/opt
+prefix = /usr/local
+
+install: myprogram doccompile
+	mkdir -p $(prefix)/bin $(prefix)/share/myprogram
+	cp -p myprogram $(prefix)/bin
+	for f in datafiles/*.dat ; do \
+	  doccompile $$f --destdir $(prefix)/share/myprogram ; \
+	done
+{% endhighlight %}
+
+As we see, you *can* write multiple-line recipes. These recipes are passed off
+to your shell so you can do anything that your shell supports: output
+redirection, backgrounding, all sorts of crazy things. Of course, you should
+keep things simple; generally speaking, most recipes in a well-written
+`Makefile` just invoke a single command.
+
+What's not apparent above is that each line is executed in its own *separate*
+little shell. So, for instance, if you set a shell variable in the first line
+of your recipe, its value won't carry over into the second line. The bottom
+half of the example shows how to work around this: if you end a `Makefile`
+line with a backslash, it gets treated as a single command. Backslashes have
+this effect in any part of a `Makefile`, not just the recipe lines.
+
+When `make` is executing recipes, it gives up with an error message if any of
+the shell commands exit with an error code (that is, an exit code other than
+zero). If the recipe is composed of several un-backslashed lines, as with
+`paper.pdf` above, it will give up on the first error.
+
+If a given line of a recipe is prefixed with a dash (`-`), `make` will ignore
+any error codes, and it’ll continue on merrily even if the command yields an
+error. This is generally useful you're writing nontrivial recipe shell
+scripts, since some plumbing-type utilities exit with nonzero codes in
+non-error situations.
+
+If a given line is prefixed with an at-sign (`@`), `make` won’t print the line
+before executing it. This is also useful for nontrivial recipe scripts that
+just clutter the screen without providing the user with any useful
+information.
+
+Actions
+-------
+
+You often see special `make` targets that are not intended to produce actual
+files. Instead, they just provide a convenient way to run little shell
+scripts. For example, you might write:
+
+{% highlight make %}
+clean:
+	-rm -f *.o mytool
+
+.PHONY: clean
+{% endhighlight %}
+
+Running `make clean` will simply run the command `rm -f *.o mytool`, which
+presumably deletes some intermediate files that can be reconstructed if
+needed. The `.PHONY` construct is a hint to `make` that tells it not to expect
+a file named `clean` to get created; it's not necessary but can sometimes be
+helpful and prevent strange behavior in unusual circumstances.
+
+Certain names for action targets are used nearly universally:
+
+* *all* shouldn’t have its own recipe, but should just depend on all of the
+  “primary” targets your `Makefile` can build, where “primary” is defined
+  subjectively. In other words, `make all` is generally the “do what I want”
+  command. The *all* target is often the first one so that its functionality
+  can be accessed even more easily, by just typing `make`.
+* *clean* should delete everything that `make` builds, so that `make clean ;
+  make` is the “start from square one” command. You should be careful writing
+  the *clean* rule to make sure that it doesn't delete files that `make`
+  didn't build!
+* *install* makes sense for software packages that need to be, well,
+  installed. Note that you need some mechanism for the user to tell your
+  `Makefile` *where* to install files; at the least, make the installation
+  location a variable of some kind, so that people can easily override it!
+  It's also good form to provide a matching *uninstall* rule, or at least to
+  structure the install commands so that it's clear what's being put where.
+
 
 <h1 id="credits">Credits</h1>
 
