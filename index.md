@@ -267,7 +267,53 @@ the conversion can sometimes change them to spaces and break the `Makefile`.
 Variables
 ---------
 
-You can define variables in `Makefile`s.
+You can --- and should --- define variables in `Makefile`s. They look a bit
+like variables in command-line shells, but you have to wrap them in
+parentheses to get their values:
+
+{% highlight make %}
+CC = gcc
+MYCFLAGS = -g -O2 -Wall
+
+mytool: mytool.c mytool.h mytable.h
+	$(CC) $(MYCFLAGS) -o mytool mytool.c
+{% endhighlight %}
+
+As in many scripting-type languages, an undefined variable expands to nothing
+without causing a warning or an error.
+
+You can override the values of variables by setting them as command-line
+arguments to `make`:
+
+{% highlight bash %}
+$ make mytool MYCFLAGS="-g -O0 -DDEBUG=1"
+gcc -g -O0 -DDEBUG=1 -o mytool mytool.c
+$
+{% endhighlight %}
+
+However, you shouldn't put yourself in situations where you need to do this
+with any regularity. One of the cardinal virtues of `make` is that it
+generates its outputs repeatably, and if special variable values need to be
+passed on the command line, you create many opportunities to lose that
+repeatability.
+
+Variables in `make` can also get their values from environment variables
+exported by the program calling `make` (your shell, usually). Unlike the
+command-line settings shown above, environment-variable settings function as
+*defaults*, not *overrides*: they take effect if the variable doesn't get set
+in the `Makefile`, but not if it does. If you use a `bash` shell, one way to
+temporarily set an environment variable is like this:
+
+{% highlight bash %}
+$ VERBOSE=1 make foo
+{% endhighlight %}
+
+which amusingly means that the following command may be equivalent to the one
+above, if the variable `VERBOSE` is not assigned in the `Makefile`:
+
+{% highlight bash %}
+$ make foo VERBOSE=1
+{% endhighlight %}
 
 
 <h1 id="credits">Credits</h1>
